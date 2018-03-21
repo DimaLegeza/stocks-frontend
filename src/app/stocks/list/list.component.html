@@ -5,7 +5,7 @@
 
   <mat-table
     [dataSource]="dataSource"
-    >
+    matSort matSortActive="lastUpdated" matSortDirection="asc">
     <!-- id column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
@@ -14,20 +14,32 @@
 
     <!-- name column -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
     </ng-container>
 
     <!-- price column -->
     <ng-container matColumnDef="currentPrice">
-      <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.currentPrice }} </mat-cell>
     </ng-container>
 
     <!-- last update column -->
-    <ng-container matColumnDef="lastUpdated">
-      <mat-header-cell *matHeaderCellDef> Last updated </mat-header-cell>
+    <ng-container matColumnDef="timestamp">
+      <mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header> Last updated </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.timestamp | date:'medium' }} </mat-cell>
+    </ng-container>
+
+    <!--edit column-->
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef class="icon-cell"></mat-header-cell>
+      <mat-cell *matCellDef="let row" class="icon-cell">
+        <button mat-raised-button color="primary" class="button-with-icon">
+          <mat-icon matTooltip="Edit stock" matTooltipPosition="above">edit</mat-icon>
+        </button>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

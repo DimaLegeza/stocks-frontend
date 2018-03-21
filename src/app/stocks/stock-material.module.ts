@@ -32,8 +32,8 @@ import {
   MatToolbarModule,
   MatTooltipModule,
 } from '@angular/material';
-import { NgModule } from "@angular/core";
-import { CdkTableModule } from "@angular/cdk/table";
+import { NgModule } from '@angular/core';
+import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   exports: [

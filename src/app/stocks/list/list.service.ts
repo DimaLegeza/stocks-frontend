@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { PageModel } from "../objects/page.model";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { PageModel } from '../objects/page.model';
 
 @Injectable()
 export class ListService {
@@ -10,7 +10,7 @@ export class ListService {
 
   public loadStockPageWithSort(sort: string, order: string, page: number): Observable<PageModel> {
     const href = '/api/stocks';
-    const requestUrl = `${href}?sort=${sort}&order=${order}&page=${page}&size=10`;
+    const requestUrl = `${href}?sort=${sort},${order}&page=${page}&size=10`;
     return this.httpClient.get<PageModel>(requestUrl);
   }
 

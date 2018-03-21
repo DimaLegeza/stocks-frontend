@@ -1,7 +1,7 @@
-import { RouterModule, Routes } from "@angular/router";
-import { NgModule } from "@angular/core";
-import { ListComponent } from "./list/list.component";
-import { DetailsComponent } from "./element/details.component";
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { ListComponent } from './list/list.component';
+import { DetailsComponent } from './element/details.component';
 
 const routes: Routes = [
   {

@@ -1,4 +1,4 @@
-import { StockModel } from "./stock.model";
+import { StockModel } from './stock.model';
 
 export interface PageModel {
   totalElements: number;
