@@ -1,1 +1,85 @@
-Details component with id: {{ id }}
+<div class="main-header">
+  <ng-container *ngIf="!isNew()">
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-with-icon extended"
+      routerLink="./"
+      [queryParams]="{edit:true}"
+      *ngIf="!isEdit()">
+      <mat-icon>edit</mat-icon> Edit stock
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-with-icon extended"
+      *ngIf="isEdit()"
+      (click)="saveStock(true)">
+      <mat-icon>save</mat-icon> Update
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-with-icon extended"
+      routerLink="./"
+      *ngIf="isEdit()">
+      <mat-icon>visibility</mat-icon> Cancel
+    </button>
+  </ng-container>
+  <ng-container *ngIf="isNew()">
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-with-icon extended" (click)="saveStock(false)">
+      <mat-icon>save</mat-icon> Create
+    </button>
+  </ng-container>
+  <button
+    mat-button
+    color="primary"
+    class="button-with-icon extended"
+    routerLink="..">
+    <mat-icon>replay</mat-icon> Back to list
+  </button>
+</div>
+
+<mat-card>
+  <form>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Stock name" [formControl]="nameFormControl" [readonly]="!isNew() && !isEdit()">
+      <mat-error *ngIf="!nameFormControl.valid">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Price" [formControl]="priceFormControl" [readonly]="!isNew() && !isEdit()">
+      <mat-error *ngIf="priceFormControl.hasError('required')">
+        Price is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="priceFormControl.hasError('pattern')">
+        Price should be numerical
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-card>
+
+
+<mat-card *ngIf="!isNew()" class="debug">
+  <mat-card-title>
+    <div fxLayout="row" fxLayoutAlign="end center" >
+      <div fxFlex="1 auto">
+        <mat-icon>bug_report</mat-icon> Debug info
+      </div>
+      <div fxFlex="1 auto">
+        <button mat-button color="primary" class="button-with-icon right-aligned" (click)="openDebugInfo()">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </mat-card-title>
+  <mat-card-content *ngIf="debugOpened">
+    <pre>{{ existingStock | json }}</pre>
+  </mat-card-content>
+</mat-card>

@@ -1,8 +1,26 @@
 button {
-  &.mat-raised-button.button-with-icon {
-    width: 36px;
+  &.button-with-icon {
     min-width: 0;
     padding-left: 0;
     padding-right: 0;
+    width: 36px;
+
+    &.right-aligned {
+      margin-right: 16px;
+      float: right;
+    }
+
+    &.extended {
+      margin-top: 6px;
+      width: 144px;
+      &:first-child {
+        margin-left: 16px;
+      }
+      & .mat-icon {
+        margin-top: -3px;
+        margin-right: 4px;
+      }
+    }
+
   }
 }

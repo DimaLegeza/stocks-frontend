@@ -1,11 +1,22 @@
+<div class="main-header">
+    <button mat-raised-button color="primary" class="button-with-icon right-aligned extended" routerLink="new">
+      <mat-icon>add</mat-icon> Create new
+    </button>
+</div>
+
 <mat-card>
   <div class="loading-shade" *ngIf="isLoadingResults">
     <mat-spinner></mat-spinner>
   </div>
+  <div class="filter-header">
+    <mat-form-field>
+      <input matInput (keyup)='filterKeyUp.next($event.target.value)' placeholder="Name filter">
+    </mat-form-field>
+  </div>
 
   <mat-table
     [dataSource]="dataSource"
-    matSort matSortActive="lastUpdated" matSortDirection="asc">
+    matSort matSortActive="timestamp" matSortDirection="asc">
     <!-- id column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
@@ -36,14 +47,19 @@
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef class="icon-cell"></mat-header-cell>
       <mat-cell *matCellDef="let row" class="icon-cell">
-        <button mat-raised-button color="primary" class="button-with-icon">
+        <button
+          mat-button
+          color="primary"
+          class="button-with-icon"
+          [routerLink]="row.id"
+          [queryParams]="{edit:true}">
           <mat-icon matTooltip="Edit stock" matTooltipPosition="above">edit</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="row.id"></mat-row>
   </mat-table>
 
   <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>

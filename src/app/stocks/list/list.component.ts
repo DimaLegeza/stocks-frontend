@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { ListService } from './list.service';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { merge } from 'rxjs/observable/merge';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'stock-list',
@@ -12,11 +14,16 @@ import { merge } from 'rxjs/observable/merge';
     ListService
   ]
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
+  private sortSub: Subscription;
+  private filterSub: Subscription;
+  private filterValueChange: EventEmitter<string> = new EventEmitter();
+  private filterValue: string;
   public isLoadingResults = true;
   public resultsLength: number;
   public dataSource = new MatTableDataSource();
   public displayedColumns = ['id', 'name', 'currentPrice', 'timestamp', 'edit'];
+  public filterKeyUp = new Subject<string>();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -24,18 +31,23 @@ export class ListComponent implements OnInit {
   constructor(private listService: ListService) {}
 
   ngOnInit() {
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.sortSub = this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.filterSub = this.filterKeyUp.pipe(
+      debounceTime(1000),
+      distinctUntilChanged()
+    ).subscribe(value => {
+      this.filterValue = value;
+      this.filterValueChange.emit(value);
+    });
 
-    merge(this.sort.sortChange, this.paginator.page)
+
+    merge(this.sort.sortChange, this.paginator.page, this.filterValueChange)
       .pipe(
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          if (this.sort.active) {
-            return this.listService.loadStockPageWithSort(this.sort.active, this.sort.direction, this.paginator.pageIndex);
-          } else {
-            return this.listService.loadStockPage(this.paginator.pageIndex);
-          }
+          return this.listService.
+                loadStockPage(this.paginator.pageIndex, this.sort.active, this.sort.direction, this.filterValue);
         }),
         map(data => {
           // Flip flag to show that loading has finished.
@@ -50,4 +62,14 @@ export class ListComponent implements OnInit {
         })
       ).subscribe(data => this.dataSource.data = data);
   }
+
+  ngOnDestroy() {
+    if (this.filterSub) {
+      this.filterSub.unsubscribe();
+    }
+    if (this.sortSub) {
+      this.sortSub.unsubscribe();
+    }
+  }
+
 }

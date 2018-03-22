@@ -1,4 +1,22 @@
 mat-card {
+
+  &.debug {
+    background: rgba(0,0,0,0.1);
+    margin-top: 32px;
+
+    & .mat-card-title {
+      font-size: 11px;
+    }
+
+    & pre {
+      font-size: 11px;
+    }
+
+    & .mat-icon {
+      font-size: 20px;
+    }
+  }
+
   & .loading-shade {
     position: absolute;
     top: 0;
@@ -15,5 +33,22 @@ mat-card {
   & .list-table {
     min-height: 300px;
     max-height: 500px;
+  }
+
+  & .filter-header {
+
+    & .mat-form-field {
+      width:100%;
+    }
+    min-height: 64px;
+    padding: 8px 24px 0;
+  }
+}
+
+.half-width {
+  width: 45%;
+
+  &:first-child {
+    padding-right: 5%;
   }
 }

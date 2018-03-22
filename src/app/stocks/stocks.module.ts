@@ -6,6 +6,7 @@ import { DetailsComponent } from './element/details.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { StockMaterialModule } from './stock-material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,8 @@ import { StockMaterialModule } from './stock-material.module';
     FlexLayoutModule,
     HttpClientModule,
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     StockMaterialModule
   ],
   providers: []

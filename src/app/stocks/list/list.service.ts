@@ -8,15 +8,15 @@ export class ListService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public loadStockPageWithSort(sort: string, order: string, page: number): Observable<PageModel> {
+  public loadStockPage(page: number, sort: string | null, order: string | null, filter: string | null): Observable<PageModel> {
     const href = '/api/stocks';
-    const requestUrl = `${href}?sort=${sort},${order}&page=${page}&size=10`;
-    return this.httpClient.get<PageModel>(requestUrl);
-  }
-
-  public loadStockPage(page: number): Observable<PageModel> {
-    const href = '/api/stocks';
-    const requestUrl = `${href}?page=${page}&size=10`;
+    let requestUrl = `${href}?page=${page}&size=10`;
+    if (sort) {
+      requestUrl += `&sort=${sort},${order}`;
+    }
+    if (filter) {
+      requestUrl += `&q=name:${filter}`;
+    }
     return this.httpClient.get<PageModel>(requestUrl);
   }
 
