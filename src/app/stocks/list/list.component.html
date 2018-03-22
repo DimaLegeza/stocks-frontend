@@ -1,7 +1,14 @@
-<div class="main-header">
-    <button mat-raised-button color="primary" class="button-with-icon right-aligned extended" routerLink="new">
+<div class="main-header" fxLayout="row" fxLayoutAlign="start center">
+  <div fxFlex="1 auto" class="logo"></div>
+  <div fxFlex="1 auto">
+    <button
+      mat-raised-button
+      color="primary"
+      class="button-with-icon right-aligned extended no-top-margin"
+      routerLink="new">
       <mat-icon>add</mat-icon> Create new
     </button>
+  </div>
 </div>
 
 <mat-card>

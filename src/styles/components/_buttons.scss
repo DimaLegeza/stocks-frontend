@@ -13,9 +13,15 @@ button {
     &.extended {
       margin-top: 6px;
       width: 144px;
+
+      &.no-top-margin {
+        margin-top: 0;
+      }
+
       &:first-child {
         margin-left: 16px;
       }
+
       & .mat-icon {
         margin-top: -3px;
         margin-right: 4px;
