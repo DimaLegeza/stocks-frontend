@@ -13,7 +13,7 @@ export class DetailsService {
     return this.httpClient.get<StockModel>(href);
   }
 
-  public save(name: string, price: number): Observable<StockModel> {
+  public save(name: string, price: string): Observable<StockModel> {
     const model: StockModel = {
       name: name,
       currentPrice: price
@@ -22,7 +22,7 @@ export class DetailsService {
     return this.httpClient.post<StockModel>(href, model);
   }
 
-  public update(name: string, price: number, oldStock: StockModel): Observable<StockModel> {
+  public update(name: string, price: string, oldStock: StockModel): Observable<StockModel> {
     const model: StockModel = {
       id: oldStock.id,
       name: name,

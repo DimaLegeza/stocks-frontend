@@ -2,6 +2,6 @@ export interface StockModel {
   id?: number;
   name: string | null;
   lockVersion?: number;
-  currentPrice: number | null;
+  currentPrice: string | null;
   timestamp?: number;
 }
