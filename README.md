@@ -9,8 +9,9 @@ Project consists of two parts:
 Back-end part can be found via [this link](https://github.com/DimaLegeza/stocks-backend) 
 
 # Dependencies
-Production environment: Docker or real web-server, e.g. Nginx
-Development environment: npm, Angular CLI (installed globally), Karma (installed globally)
+**Production environment:** Docker or real web-server, e.g. Nginx
+
+**Development environment:** npm, Angular CLI (installed globally), Karma (installed globally)
 
 # Technological stack
 * Angular 5
@@ -33,6 +34,7 @@ After that following running options are available:
 As production-ready solution, front-end docker image can be build on top of Nginx image
 
 **Building Docker image:**
+
 Windows machine:
 ```create_image.cmd```
 
