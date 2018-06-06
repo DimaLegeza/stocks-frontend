@@ -10,7 +10,7 @@ import { DetailsService } from './details.service';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
-  selector: 'stock-details',
+  selector: 'app-stock-details',
   templateUrl: './details.component.html',
   providers: [
     DetailsService

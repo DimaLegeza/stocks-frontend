@@ -8,7 +8,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'stock-list',
+  selector: 'app-stock-list',
   templateUrl: './list.component.html',
   providers: [
     ListService
